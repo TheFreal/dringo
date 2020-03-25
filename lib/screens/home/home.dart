@@ -9,6 +9,16 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.group),
+          title: Text("Games"),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.grid_on),
+          title: Text("Boards"),
+        ),
+      ]),
       appBar: AppBar(
         title: Text("Dringo"),
         backgroundColor: Colors.red,

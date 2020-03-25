@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dringo/screens/home/roomitem.dart';
 import 'package:flutter/material.dart';
 
 class ServerList extends StatelessWidget {
@@ -15,10 +16,10 @@ class ServerList extends StatelessWidget {
             return new ListView(
               children:
                   snapshot.data.documents.map((DocumentSnapshot document) {
-                return new ListTile(
-                  title: new Text(document['name']),
-                  subtitle:
-                      new Text("${document['size']}x${document['size']} board"),
+                return new RoomItem(
+                  name: document['name'],
+                  size: document['size'],
+                  created: (document['created_at'] as Timestamp).toDate(),
                 );
               }).toList(),
             );
