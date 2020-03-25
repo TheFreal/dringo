@@ -1,6 +1,6 @@
 # Dringo
 
-A party game which combines bingo boards with pub crawling. Highly work in progress.
+A party game that combines bingo boards with pub crawling. Highly work in progress.
 Built in Flutter.
 
 ## Categories (as of now)
