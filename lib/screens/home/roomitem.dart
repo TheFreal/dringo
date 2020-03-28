@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dringo/screens/gamescreen.dart';
 import 'package:flutter/material.dart';
 
 class RoomItem extends StatelessWidget {
@@ -5,31 +7,52 @@ class RoomItem extends StatelessWidget {
   final int size;
   final int players;
   final DateTime created;
+  final DocumentReference ref;
 
-  const RoomItem({Key key, this.name, this.size, this.players, this.created})
+  const RoomItem(
+      {Key key, this.name, this.size, this.players, this.created, this.ref})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 1,
       margin: EdgeInsets.fromLTRB(15, 20, 15, 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: BorderSide(color: Colors.grey[300], width: 1),
+        side: BorderSide(color: Colors.grey[200], width: 1),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(25),
-        child: Column(
-          children: <Widget>[
-            Text(
-              name,
-              style: TextStyle(fontSize: 21),
-            ),
-            SizedBox(height: 5),
-            Text(
-                "${DateTime.now().difference(created).inHours}h ago  -  ${size}x$size board"),
-          ],
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => GameScreen(
+                        ref: ref,
+                        name: name,
+                      )));
+        },
+        child: Padding(
+          padding: EdgeInsets.all(25),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      name,
+                      style: TextStyle(fontSize: 21),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                        "${DateTime.now().difference(created).inHours}h ago  -  ${size}x$size board"),
+                  ],
+                ),
+              ),
+              Icon(Icons.grid_on)
+            ],
+          ),
         ),
       ),
     );

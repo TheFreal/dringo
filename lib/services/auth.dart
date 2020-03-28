@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dringo/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,7 +27,37 @@ class AuthService {
     }
   }
 
-  // register stuff
+  Future signInUsernameAndPassword(String username, String password) async {
+    try {
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: "$username@dringomail.com", password: password);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return e;
+    }
+  }
+
+  // username/password sign up
+  Future signUpUsernameAndPassword(String username, String password) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: "$username@dringomail.com", password: password);
+      FirebaseUser user = result.user;
+      // create a user data database entry
+      await Firestore.instance
+          .collection("users")
+          .document(result.user.uid)
+          .setData({
+        "rooms": [],
+      });
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return e;
+    }
+  }
 
   // sign out
   Future signOut() async {
