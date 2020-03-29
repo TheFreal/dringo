@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dringo/screens/home/serverlist.dart';
+import 'package:dringo/screens/newgame/boardbuiler.dart';
 import 'package:dringo/screens/newgame/gamegen.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:dringo/services/auth.dart';
@@ -61,9 +63,12 @@ class Home extends StatelessWidget {
                     .push(MaterialPageRoute(builder: (context) => GameGen()));
               }),
           SpeedDialChild(
-            label: "Build your own board",
-            child: Icon(Icons.edit),
-          ),
+              label: "Build your own board",
+              child: Icon(Icons.edit),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => BoardBuilder()));
+              }),
         ],
       ),
       body: ServerList(),

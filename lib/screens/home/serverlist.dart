@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dringo/models/user.dart';
 import 'package:dringo/screens/gamescreen.dart';
@@ -85,6 +86,12 @@ class ServerList extends StatelessWidget {
         });
   }
 
+  int getDoneness(List board) {
+    var allFields = board.length;
+    var complete = board.where((cell) => cell["done"]).length;
+    return ((complete / allFields) * 100).round();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context, listen: false);
@@ -135,6 +142,8 @@ class ServerList extends StatelessWidget {
                 size: document['size'],
                 created: (document['created_at'] as Timestamp).toDate(),
                 ref: document.reference,
+                players: document['players'].length,
+                percent: getDoneness(document['board']),
               );
             }).toList();
             allItems.insertAll(1, roomItems);

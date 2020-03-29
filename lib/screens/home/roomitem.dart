@@ -6,11 +6,18 @@ class RoomItem extends StatelessWidget {
   final String name;
   final int size;
   final int players;
+  final int percent;
   final DateTime created;
   final DocumentReference ref;
 
   const RoomItem(
-      {Key key, this.name, this.size, this.players, this.created, this.ref})
+      {Key key,
+      this.name,
+      this.size,
+      this.players,
+      this.created,
+      this.ref,
+      this.percent})
       : super(key: key);
 
   @override
@@ -46,7 +53,7 @@ class RoomItem extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(
-                        "${DateTime.now().difference(created).inHours}h ago  -  ${size}x$size board"),
+                        "${DateTime.now().difference(created).inHours}h ago  -  ${size}x$size board - $players Players - $percent% done"),
                   ],
                 ),
               ),

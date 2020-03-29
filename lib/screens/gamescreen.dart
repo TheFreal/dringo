@@ -16,7 +16,7 @@ class GameScreen extends StatelessWidget {
   const GameScreen({Key key, this.ref, this.name}) : super(key: key);
 
   List<TableRow> buildBoard({size, board, gameId}) {
-    // step through all fields there should be
+    // step through all fields (all there should be according to size, that is)
     int _cellNr = 0;
     List<TableRow> _board = [];
     for (var i = 0; i < size; i++) {
@@ -56,8 +56,9 @@ class GameScreen extends StatelessWidget {
                             ref.delete();
                           } else {
                             Scaffold.of(context).showSnackBar(SnackBar(
+                              duration: Duration(seconds: 5),
                               content: Text(
-                                  "Only the creator of this room can delete it"),
+                                  "You think you can just come here and delete this room? You didn't even create it, what makes you think you can delete something that's not yours?"),
                             ));
                           }
                           break;
@@ -163,55 +164,20 @@ class _BoardCellState extends State<BoardCell> {
                 });
               }
             },
-            child: Center(
-              child: (_loading && !done
-                  ? CircularProgressIndicator()
-                  : Text(
-                      cell["name"].toString(),
-                      style: TextStyle(
-                          color: (done ? Colors.white : Colors.black)),
-                    )),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: (_loading && !done
+                    ? CircularProgressIndicator()
+                    : Text(
+                        cell["name"].toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: (done ? Colors.white : Colors.black)),
+                      )),
+              ),
             ),
           ),
         ));
-  }
-}
-
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Car', icon: Icons.directions_car),
-  const Choice(title: 'Bicycle', icon: Icons.directions_bike),
-  const Choice(title: 'Boat', icon: Icons.directions_boat),
-  const Choice(title: 'Bus', icon: Icons.directions_bus),
-  const Choice(title: 'Train', icon: Icons.directions_railway),
-  const Choice(title: 'Walk', icon: Icons.directions_walk),
-];
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard({Key key, this.choice}) : super(key: key);
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(choice.icon, size: 128.0, color: textStyle.color),
-            Text(choice.title, style: textStyle),
-          ],
-        ),
-      ),
-    );
   }
 }
