@@ -158,7 +158,6 @@ class _GameGenFormState extends State<GameGenForm> {
               // Validate returns true if the form is valid, or false
               // otherwise.
               if (_formKey.currentState.validate()) {
-                // If the form is valid, display a Snackbar.
                 _formKey.currentState.save();
 
                 Scaffold.of(context)

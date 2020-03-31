@@ -5,18 +5,31 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter on Emulator",
+            "name": "Flutter on 3XL Emulator",
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
-            "deviceId": "Emulator"
+            "deviceId": "Emulator-5554"
         },
         {
-            "name": "Flutter on Device",
+            "name": "Flutter on 2XL Emulator",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "deviceId": "Emulator-5556"
+        },
+        {
+            "name": "Flutter on ADB",
             "type": "dart",
             "request": "launch",
             "program": "lib/main.dart",
             "deviceId": "Pixel 2 XL"
+        },
+        {
+            "name": "Flutter on selected",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart"
         }
     ]
 }
